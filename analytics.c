@@ -94,151 +94,7 @@ void search_by_amount_range(
 }
 
 
-// SORT BY AMOUNT
 
-void sort_by_amount(ExpenseList *list)
-{
-    if(list == NULL ||
-       list->head == NULL)
-    {
-        return;
-    }
-
-    int swapped;
-    Expense temp;
-    Node *current;
-
-    do
-    {
-        swapped = 0;
-
-        current = list->head;
-
-        while(current->next != NULL)
-        {
-            if(current->data.total_amount >
-               current->next->data.total_amount)
-            {
-                temp = current->data;
-                current->data = current->next->data;
-                current->next->data = temp;
-
-                swapped = 1;
-            }
-
-            current = current->next;
-        }
-    }
-    while(swapped);
-
-    printf("Expenses sorted by amount.\n");
-}
-
-
-//SORT BY EXPENSE ID
-
-
-void sort_by_id(ExpenseList *list)
-{
-    if(list == NULL ||
-       list->head == NULL)
-    {
-        return;
-    }
-
-    int swapped;
-    Expense temp;
-    Node *current;
-
-    do
-    {
-        swapped = 0;
-
-        current = list->head;
-
-        while(current->next != NULL)
-        {
-            if(current->data.expense_id >
-               current->next->data.expense_id)
-            {
-                temp = current->data;
-                current->data = current->next->data;
-                current->next->data = temp;
-
-                swapped = 1;
-            }
-
-            current = current->next;
-        }
-    }
-    while(swapped);
-
-    printf("Expenses sorted by ID.\n");
-}
-
-
-//AUDIT REPORT
-
-
-void generate_audit_report(
-        const ExpenseList *list,
-        const char *filename)
-{
-    if(list == NULL ||
-       filename == NULL)
-    {
-        return;
-    }
-
-    FILE *fp = fopen(filename, "w");
-
-    if(fp == NULL)
-    {
-        printf("Unable to create report.\n");
-        return;
-    }
-
-    const Node *current = list->head;
-
-    fprintf(fp,
-            "=========== AUDIT REPORT ===========\n\n");
-
-    while(current != NULL)
-    {
-        fprintf(fp,
-                "Expense ID: %d\n",
-                current->data.expense_id);
-
-        fprintf(fp,
-                "Description: %s\n",
-                current->data.description);
-
-        fprintf(fp,
-                "Paid By: %s\n",
-                current->data.paid_by);
-
-        fprintf(fp,
-                "Amount: %.2f\n",
-                current->data.total_amount);
-
-        fprintf(fp,
-                "Participants: %d\n",
-                current->data.participant_count);
-
-        fprintf(fp,
-                "Status: %s\n\n",
-                current->data.status ==
-                EXPENSE_SETTLED
-                ? "Settled"
-                : "Unsettled");
-
-        current = current->next;
-    }
-
-    fclose(fp);
-
-    printf("Audit report generated.\n");
-}
 
 //ANALYTICS REPORT
 
@@ -326,11 +182,8 @@ void run_analytics_menu(ExpenseList *list)
 
         printf("1. Search By Payer\n");
         printf("2. Search By Amount Range\n");
-        printf("3. Sort By Amount\n");
-        printf("4. Sort By ID\n");
-        printf("5. Generate Audit Report\n");
-        printf("6. Generate Analytics Report\n");
-        printf("7. Return To Main Menu\n");
+        printf("3. Generate Analytics Report\n");
+        printf("4. Return To Main Menu\n");
 
         printf("Enter choice: ");
         scanf("%d", &choice);
@@ -375,25 +228,10 @@ void run_analytics_menu(ExpenseList *list)
             }
 
             case 3:
-                sort_by_amount(list);
-                break;
-
-            case 4:
-                sort_by_id(list);
-                break;
-
-            case 5:
-                generate_audit_report(
-                    list,
-                    "audit_report.txt"
-                );
-                break;
-
-            case 6:
                 generate_analytics_report(list);
                 break;
 
-            case 7:
+            case 4:
                 break;
 
             default:
@@ -401,5 +239,5 @@ void run_analytics_menu(ExpenseList *list)
         }
 
     }
-    while(choice != 7);
+    while(choice != 4);
 }
