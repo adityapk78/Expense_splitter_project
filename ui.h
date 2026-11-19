@@ -15,4 +15,5 @@ void clear_screen();
 void run_main_menu(ExpenseList *list);
 void run_expense_menu(ExpenseList *list);
 void display_expense_summary(const ExpenseList *list);
+void run_analytics_menu(ExpenseList *list);
 #endif

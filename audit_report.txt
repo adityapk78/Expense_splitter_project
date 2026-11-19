@@ -1,0 +1,23 @@
+=========== AUDIT REPORT ===========
+
+Expense ID: 5
+Description: s
+Paid By: g
+Amount: 232.00
+Participants: 2
+Status: Unsettled
+
+Expense ID: 4
+Description: f
+Paid By: s
+Amount: 34.00
+Participants: 2
+Status: Settled
+
+Expense ID: 1
+Description: f
+Paid By: g
+Amount: 456.00
+Participants: 2
+Status: Unsettled
+

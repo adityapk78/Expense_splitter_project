@@ -4,6 +4,7 @@
 #include "ui.h"
 #include "file_io.h"
 #include "settlement.h"
+#include "analytics.h"
 
 void display_main_menu(){
     printf("Expense Splitter\n");
@@ -11,7 +12,8 @@ void display_main_menu(){
     printf("2.Add a New Expense\n");
     printf("3.Select Expense\n");
     printf("4.Generate Summary\n");
-    printf("5.Save and Exit\n");
+     printf("5.Search and Reports\n");
+    printf("6.Save and Exit\n");
 
     printf("Enter your choice: ");
 }
@@ -31,16 +33,16 @@ int get_user_choice(){
         fgets(input, sizeof(input), stdin);
         int result = sscanf(input, "%d", &choice);
         if (result == 1){
-            if (choice >= 1 && choice <= 5){
+            if (choice >= 1 && choice <= 6){
                 return choice;
             }
         }
-        printf("Invalid choice. Enter between 1 and 5: ");
+        printf("Invalid choice. Enter between 1 and 6: ");
     }
 }
 void run_main_menu(ExpenseList *list){
     int choice ;
-    while (choice != 5){
+    while (choice != 6){
         display_main_menu();
         choice = get_user_choice();
 
@@ -86,7 +88,11 @@ void run_main_menu(ExpenseList *list){
             display_expense_summary(list);
         }
         else if(choice == 5){
+              run_analytics_menu(list);
+        }
+        else if(choice == 6){
             save_expenses_to_file(list, "expenses.dat");
+            printf("\nAll Expenses saved\n");
             printf("\nThank you, Exiting\n");
             break;
         }
@@ -168,6 +174,8 @@ void display_expense_details(const Expense *expense){
     printf("Paid By: %s\n", expense->paid_by);
     printf("Total Amount: %.2f\n", expense->total_amount);
     printf("Participants: %d\n", expense->participant_count);
+    printf("Individual Share: %.2f\n",
+       calculate_share((Expense *)expense));
     if (expense->status == EXPENSE_UNSETTLED){
         printf("Status: Unsettled\n");
     }
