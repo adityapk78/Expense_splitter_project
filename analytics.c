@@ -6,9 +6,7 @@
 
 // SEARCH BY PAYER NAME
 
-void search_by_payer(const ExpenseList *list,
-                     const char *payer)
-{
+void search_by_payer(const ExpenseList *list, const char *payer){
     if(list == NULL || payer == NULL)
     {
         return;
@@ -52,11 +50,7 @@ void search_by_payer(const ExpenseList *list,
 
 //SEARCH BY AMOUNT RANGE
 
-void search_by_amount_range(
-        const ExpenseList *list,
-        double min_amount,
-        double max_amount)
-{
+void search_by_amount_range(const ExpenseList *list, double min_amount, double max_amount){
     if(list == NULL)
     {
         return;
@@ -99,9 +93,7 @@ void search_by_amount_range(
 //ANALYTICS REPORT
 
 
-void generate_analytics_report(
-        const ExpenseList *list)
-{
+void generate_analytics_report(const ExpenseList *list){
     if(list == NULL)
     {
         return;
